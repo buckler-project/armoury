@@ -1,9 +1,8 @@
 import sys, os, pprint, subprocess
 import unittest
 
-sys.path.append(os.pardir)
-
-from src.func import install
+sys.path.append('../src/')
+from func import install
 
 
 class TestPackage(unittest.TestCase):

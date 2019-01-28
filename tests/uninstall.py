@@ -1,10 +1,9 @@
 import sys, os, pprint, subprocess
 import unittest
 
-sys.path.append(os.pardir)
-
-from src.func import install
-from src.func import uninstall
+sys.path.append('../src/')
+from func import install
+from func import uninstall
 
 
 class TestPackage(unittest.TestCase):
