@@ -1,8 +1,8 @@
 import os
 import yaml
 
-from ..utils import config as _config
-from ..utils import url as _url
+from utils import config as _config
+from utils import url as _url
 
 
 

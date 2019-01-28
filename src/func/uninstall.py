@@ -1,7 +1,7 @@
 import os
 import yaml
 
-from ..utils import config as _config
+from utils import config as _config
 
 
 def uninstall(name, config):
