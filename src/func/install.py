@@ -3,6 +3,8 @@ import yaml
 
 from utils import setting as _setting
 from utils import cmd as _cmd
+from utils.config import config
+
 
 from package.scanner import Scanner, ScannerFactory
 from package.signature import Signature, SignatureFactory
@@ -44,6 +46,14 @@ def install_scanner(url):
         f"{scanner.get_path()}/{scanner.config['path']}"
     )
 
+    config.add(
+        'scanners',
+        scanner.get_name()
+    )
+
 def install_signature(url):
     signature = install(url, SignatureFactory)
-
+    config.add(
+        'signatures',
+        signature.get_name()
+    )

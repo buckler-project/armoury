@@ -15,6 +15,9 @@ class Package:
         self.parent_path = ''
         self.config_path = ''
 
+    def get_name(self):
+        return f'{self.auther}/{self.name}'
+
     def get_path(self):
         return f'{self.parent_path}/{self.auther}/{self.name}'
 

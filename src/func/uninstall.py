@@ -3,6 +3,7 @@ import yaml
 
 from utils import setting as _setting
 from utils import cmd as _cmd
+from utils.config import config
 
 from package.scanner import Scanner, ScannerFactory
 from package.signature import Signature, SignatureFactory
@@ -22,10 +23,20 @@ def uninstall(url, _factory):
     cmd = f"rm -r {package.parent_path}/{package.auther}"
     _cmd.run_cmd(cmd)
 
+    return package
+
 def uninstall_scanner(url):
-    uninstall(url, ScannerFactory)
-    # TODO
+    scanner = uninstall(url, ScannerFactory)
+    
+    config.delete(
+        'scanners',
+        scanner.get_name()
+    )
 
 def uninstall_signature(url):
-    uninstall(url, SignatureFactory)
-    # TODO
+    signature = uninstall(url, SignatureFactory)
+
+    config.delete(
+        'signatures',
+        signature.get_name()
+    )
