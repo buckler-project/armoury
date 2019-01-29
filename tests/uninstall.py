@@ -19,14 +19,14 @@ class TestPackage(unittest.TestCase):
         os.system('rm -rf .signatures')
 
     def test_install_scanner(self):
-        uninstall.uninstall_scanner('sample-scanner')
-        files = subprocess.getoutput('ls .scanners')
-        self.assertEqual('', files)
+        uninstall.uninstall_scanner('buckler-project/sample-scanner')
+        # files = subprocess.getoutput('ls .scanners')
+        # self.assertEqual('', files)
 
     def test_install_signature(self):
-        uninstall.uninstall_signature('sample-signature')
-        files = subprocess.getoutput('ls .signatures')
-        self.assertEqual('', files)
+        uninstall.uninstall_signature('buckler-project/sample-signature')
+        # files = subprocess.getoutput('ls .signatures')
+        # self.assertEqual('', files)
 
 
 if __name__ == '__main__':
