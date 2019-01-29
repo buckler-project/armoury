@@ -32,7 +32,19 @@ def install(url, _factory):
     return package
 
 def install_scanner(url):
-    install(url, ScannerFactory)
+    scanner = install(url, ScannerFactory)
+    
+    path = scanner.config['path'].split('/')
+    path = '/'.join(path[:-1])
+    path = f"{scanner.get_path()}/{path}"
+    os.makedirs(path)
+
+    print(f'download : {scanner.config["url"]}')
+
+    urllib.request.urlretrieve(
+        scanner.config['url'],
+        f"{scanner.get_path()}/{scanner.config['path']}"
+    )
 
 def install_signature(url):
     install(url, SignatureFactory)

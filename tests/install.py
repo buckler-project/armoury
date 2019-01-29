@@ -23,6 +23,9 @@ class TestPackage(unittest.TestCase):
         files = subprocess.getoutput('ls .scanners/buckler-project')
         self.assertEqual('sample-scanner', files)
 
+        files = subprocess.getoutput('ls .scanners/buckler-project/sample-scanner/bin/')
+        self.assertEqual('libsample.so', files)
+
     def test_install_scanner_(self):
         install.install_scanner('buckler-project/sample-scanner')
         
@@ -31,6 +34,9 @@ class TestPackage(unittest.TestCase):
         
         files = subprocess.getoutput('ls .scanners/buckler-project')
         self.assertEqual('sample-scanner', files)
+
+        files = subprocess.getoutput('ls .scanners/buckler-project/sample-scanner/bin/')
+        self.assertEqual('libsample.so', files)
 
     def test_install_signature(self):
         install.install_signature('https://github.com/buckler-project/sample-signature')
