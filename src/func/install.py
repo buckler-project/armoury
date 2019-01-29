@@ -1,4 +1,4 @@
-import os
+import os, re
 import yaml
 
 from utils import config as _config
@@ -7,6 +7,9 @@ from utils import url as _url
 
 
 def install(url, config):
+    if not re.match(r"^https?:\/\/", url):
+        url = f"{_config.url}/{url}"
+
     os.system(f"cd {config.parent_path} && git clone {url}")
 
     name = _url.get_repo_name(url)
