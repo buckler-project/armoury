@@ -2,7 +2,7 @@ import os, re, urllib.request
 import yaml
 
 from utils import config as _config
-from utils import path as _url
+from utils import cmd as _cmd
 
 from package.scanner import Scanner, ScannerFactory
 from package.signature import Signature, SignatureFactory
@@ -17,12 +17,11 @@ def install(url, _factory):
         package = factory.generate_from_name(url)
 
     cmd = f"mkdir {package.parent_path}/{package.auther}"
-    print(cmd)
-    os.system(cmd)
+    _cmd.run_cmd(cmd)
+
 
     cmd = f"cd {package.parent_path}/{package.auther} && git clone {package.url}"
-    print(cmd)
-    os.system(cmd)
+    _cmd.run_cmd(cmd)
 
     path = package.get_config_path()        
     with open(path) as f:

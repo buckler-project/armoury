@@ -1,7 +1,8 @@
-import os, re, subprocess
+import re
 import yaml
 
 from utils import config as _config
+from utils import cmd as _cmd
 
 from package.scanner import Scanner, ScannerFactory
 from package.signature import Signature, SignatureFactory
@@ -16,12 +17,10 @@ def uninstall(url, _factory):
         package = factory.generate_from_name(url)
     
     cmd = f"rm -rf {package.get_path()}"
-    print(cmd)
-    os.system(cmd)
+    _cmd.run_cmd(cmd)
 
     cmd = f"rm -r {package.parent_path}/{package.auther}"
-    print(cmd)
-    subprocess.getoutput(cmd)
+    _cmd.run_cmd(cmd)
 
 def uninstall_scanner(url):
     uninstall(url, ScannerFactory)

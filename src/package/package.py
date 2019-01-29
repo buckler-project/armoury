@@ -1,8 +1,9 @@
-import subprocess, os
+import os
 from abc import *
 import yaml
 
 from utils import config as _config
+from utils import cmd as _cmd
 
 class Package:
     def __init__(self, url, name, auther):
@@ -46,7 +47,8 @@ class PackageFactory(metaclass=ABCMeta):
             cmd = f'''cd {self.parent_path}/{auther}/{name}/ \\
                 && git config --get remote.origin.url
                 '''
-            url = subprocess.getoutput(cmd)
+            
+            url = _cmd.run_cmd(cmd, subprocess=True, output=False)
         
         else:
             url = f'{_config.url}{auther}/{name}'

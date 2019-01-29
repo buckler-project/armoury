@@ -1,4 +1,3 @@
-import subprocess
 from package import package
 
 parent_path = '.signatures'
