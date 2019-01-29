@@ -17,7 +17,33 @@ class TestPackage(unittest.TestCase):
 
     def test_generate_signature(self):
         factory = SignatureFactory()
-        signature = factory.generate(auther='buckler-project', name='sample-signature')
+        signature = factory.generate(
+            url='https://github.com/buckler-project/sample-signature',
+            auther='buckler-project',
+            name='sample-signature'
+        )
+
+        self.assertEqual('buckler-project', signature.auther)
+        self.assertEqual('sample-signature', signature.name)
+        self.assertEqual('https://github.com/buckler-project/sample-signature', signature.url)
+
+        self.assertEqual('.signatures/buckler-project/sample-signature', signature.get_path())
+        self.assertEqual('.signatures/buckler-project/sample-signature/signature.yml', signature.get_config_path())
+
+    def test_generate_signature_from_name(self):
+        factory = SignatureFactory()
+        signature = factory.generate_from_name('buckler-project/sample-signature')
+
+        self.assertEqual('buckler-project', signature.auther)
+        self.assertEqual('sample-signature', signature.name)
+        self.assertEqual('https://github.com/buckler-project/sample-signature', signature.url)
+
+        self.assertEqual('.signatures/buckler-project/sample-signature', signature.get_path())
+        self.assertEqual('.signatures/buckler-project/sample-signature/signature.yml', signature.get_config_path())
+
+    def test_generate_signature_from_directory(self):
+        factory = SignatureFactory()
+        signature = factory.generate_from_directory(auther='buckler-project', name='sample-signature')
 
         self.assertEqual('buckler-project', signature.auther)
         self.assertEqual('sample-signature', signature.name)

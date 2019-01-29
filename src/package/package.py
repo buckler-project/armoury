@@ -1,7 +1,8 @@
 import subprocess, os
 from abc import *
-
 import yaml
+
+from utils import config as _config
 
 class Package:
     def __init__(self, url, name, auther):
@@ -32,15 +33,23 @@ class PackageFactory(metaclass=ABCMeta):
 
         path = package.get_config_path()        
         with open(path) as f:
-             package.config = yaml.load(f)
+            package.config = yaml.load(f)
         
         return package
 
-    def generate_from_directory(self, name, auther):
-        cmd = f'''cd {self.parent_path}/{auther}/{name}/ \\
-            && git config --get remote.origin.url
-            '''
-        url = subprocess.getoutput(cmd)
+    def generate_from_name(self, name):
+        name = name.split('/')
+        return self.generate_from_directory(auther=name[0], name=name[1])
+
+    def generate_from_directory(self, auther, name):
+        if os.path.isdir(f'{self.parent_path}/{auther}/{name}'):
+            cmd = f'''cd {self.parent_path}/{auther}/{name}/ \\
+                && git config --get remote.origin.url
+                '''
+            url = subprocess.getoutput(cmd)
+        
+        else:
+            url = f'{_config.url}{auther}/{name}'
 
         return self.generate(url=url, name=name, auther=auther)
 

@@ -13,8 +13,7 @@ def uninstall(url, _factory):
     if re.match(r"^https?:\/\/", url):
         package = factory.generate_from_url(url)
     else:
-        name = url.split('/')
-        package = factory.generate_from_directory(auther=name[0], name=name[1])
+        package = factory.generate_from_name(url)
     
     cmd = f"rm -rf {package.get_path()}"
     print(cmd)

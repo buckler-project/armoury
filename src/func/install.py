@@ -14,8 +14,7 @@ def install(url, _factory):
     if re.match(r"^https?:\/\/", url):
         package = factory.generate_from_url(url)
     else:
-        name = url.split('/')
-        package = factory.generate(auther=name[0], name=name[1], url=f"{_config.url}{name[0]}/{name[1]}")
+        package = factory.generate_from_name(url)
 
     cmd = f"mkdir {package.parent_path}/{package.auther}"
     print(cmd)
@@ -47,4 +46,5 @@ def install_scanner(url):
     )
 
 def install_signature(url):
-    install(url, SignatureFactory)
+    signature = install(url, SignatureFactory)
+

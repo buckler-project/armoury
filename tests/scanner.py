@@ -17,7 +17,33 @@ class TestPackage(unittest.TestCase):
 
     def test_generate_scanner(self):
         factory = ScannerFactory()
-        scanner = factory.generate(auther='buckler-project', name='sample-scanner')
+        scanner = factory.generate(
+            url='https://github.com/buckler-project/sample-scanner',
+            auther='buckler-project',
+            name='sample-scanner'
+        )
+
+        self.assertEqual('buckler-project', scanner.auther)
+        self.assertEqual('sample-scanner', scanner.name)
+        self.assertEqual('https://github.com/buckler-project/sample-scanner', scanner.url)
+
+        self.assertEqual('.scanners/buckler-project/sample-scanner', scanner.get_path())
+        self.assertEqual('.scanners/buckler-project/sample-scanner/scanner.yml', scanner.get_config_path())
+
+    def test_generate_scanner_from_name(self):
+        factory = ScannerFactory()
+        scanner = factory.generate_from_name('buckler-project/sample-scanner')
+
+        self.assertEqual('buckler-project', scanner.auther)
+        self.assertEqual('sample-scanner', scanner.name)
+        self.assertEqual('https://github.com/buckler-project/sample-scanner', scanner.url)
+
+        self.assertEqual('.scanners/buckler-project/sample-scanner', scanner.get_path())
+        self.assertEqual('.scanners/buckler-project/sample-scanner/scanner.yml', scanner.get_config_path())
+
+    def test_generate_scanner_from_directory(self):
+        factory = ScannerFactory()
+        scanner = factory.generate_from_directory(auther='buckler-project', name='sample-scanner')
 
         self.assertEqual('buckler-project', scanner.auther)
         self.assertEqual('sample-scanner', scanner.name)
