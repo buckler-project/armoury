@@ -18,12 +18,12 @@ def install(url, _factory):
         package = factory.generate(auther=name[0], name=name[1], url=f"{_config.url}{name[0]}/{name[1]}")
 
     cmd = f"mkdir {package.parent_path}/{package.auther}"
-    os.system(cmd)
     print(cmd)
+    os.system(cmd)
 
     cmd = f"cd {package.parent_path}/{package.auther} && git clone {package.url}"
-    os.system(cmd)
     print(cmd)
+    os.system(cmd)
 
     path = package.get_config_path()        
     with open(path) as f:
