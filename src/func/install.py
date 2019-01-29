@@ -5,32 +5,25 @@ from utils import config as _config
 from utils import path as _url
 
 from package.scanner import Scanner, ScannerFactory
+from package.signature import Signature, SignatureFactory
 
 
-def install(url, config):
-    os.system(f"cd {config.parent_path} && git clone {url}")
+def install(url, _factory):
+    factory = _factory()
 
-    name = _url.get_repo_name(url)
+    if re.match(r"^https?:\/\/", url):
+        package = factory.generate_from_url(url)
+    else:
+        name = url.split('/')
+        package = factory.generate(auther=name[0], name=name[1])
 
-
-    return config
-
-def _install(package):
     os.system(f"mkdir {package.parent_path}/{package.auther}")
     os.system(f"cd {package.parent_path}/{package.auther} && git clone {package.url}")
 
-def install_scanner(name):
-    if re.match(r"^https?:\/\/", name):
-        url = name
-    else:
-        url = f"{_config.url}{name}"
+    return package
 
-    factory = ScannerFactory()
-    scanner = factory.generate_from_url(url)
-
-    _install(scanner)
+def install_scanner(url):
+    install(url, ScannerFactory)
 
 def install_signature(url):
-    config = install(url, _config.signature)
-    print(config["scanner"])
-    # TODO
+    install(url, SignatureFactory)
