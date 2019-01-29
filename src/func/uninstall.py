@@ -1,4 +1,4 @@
-import os, re
+import os, re, subprocess
 import yaml
 
 from utils import config as _config
@@ -18,8 +18,11 @@ def uninstall(url, _factory):
     
     cmd = f"rm -rf {package.get_path()}"
     print(cmd)
-
     os.system(cmd)
+
+    cmd = f"rm -r {package.parent_path}/{package.auther}"
+    print(cmd)
+    subprocess.getoutput(cmd)
 
 def uninstall_scanner(url):
     uninstall(url, ScannerFactory)
