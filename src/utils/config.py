@@ -5,5 +5,3 @@ class scanner:
 class signature:
     parent_path = '.signatures'
     config_path = 'signature.yml'
-
-url = 'https://github.com/'

@@ -2,21 +2,23 @@ import os
 import yaml
 
 from utils import config as _config
+from utils import url as _url
 
 
-def install(name, config):
-    os.system(f"cd {config.parent_path} && git clone {_config.url}/{name}")
 
-    name = name.split('/')[-1]
+def install(url, config):
+    os.system(f"cd {config.parent_path} && git clone {url}")
+
+    name = _url.get_repo_name(url)
     with open(f"{config.parent_path}/{name}/{config.config_path}") as f:
         config = yaml.load(f)
 
     return config
 
-def install_scanner(name):
-    config = install(name, _config.scanner)
+def install_scanner(url):
+    config = install(url, _config.scanner)
     # TODO
 
-def install_signature(name):
-    config = install(name, _config.signature)
+def install_signature(url):
+    config = install(url, _config.signature)
     # TODO
