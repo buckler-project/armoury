@@ -21,7 +21,6 @@ def install(url, _factory):
     cmd = f"mkdir {package.parent_path}/{package.auther}"
     _cmd.run_cmd(cmd)
 
-
     cmd = f"cd {package.parent_path}/{package.auther} && git clone {package.url}"
     _cmd.run_cmd(cmd)
 
@@ -53,7 +52,12 @@ def install_scanner(url):
 
 def install_signature(url):
     signature = install(url, SignatureFactory)
-    config.add(
-        'signatures',
-        signature.get_name()
-    )
+
+    scanners = config.load()['scanners']
+    if signature.config['scanner'] in scanners:
+        config.add(
+            'signatures',
+            signature.get_name()
+        )
+    else:
+        print('not found scanner')

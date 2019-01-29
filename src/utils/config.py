@@ -13,6 +13,8 @@ class Config:
     def load(self):
         with open(self.name, 'r') as f:
             self.dict = yaml.load(f)
+        
+        return self.dict
 
     def save(self):
         with open(self.name, 'w') as f:
