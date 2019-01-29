@@ -1,7 +1,7 @@
 import re
 import yaml
 
-from utils import config as _config
+from utils import setting as _setting
 from utils import cmd as _cmd
 
 from package.scanner import Scanner, ScannerFactory

@@ -2,7 +2,7 @@ import os
 from abc import *
 import yaml
 
-from utils import config as _config
+from utils import setting as _setting
 from utils import cmd as _cmd
 
 class Package:
@@ -51,7 +51,7 @@ class PackageFactory(metaclass=ABCMeta):
             url = _cmd.run_cmd(cmd, subprocess=True, output=False)
         
         else:
-            url = f'{_config.url}{auther}/{name}'
+            url = f'{_setting.url}{auther}/{name}'
 
         return self.generate(url=url, name=name, auther=auther)
 
