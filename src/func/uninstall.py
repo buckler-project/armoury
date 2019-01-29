@@ -14,7 +14,7 @@ def uninstall(url, _factory):
         package = factory.generate_from_url(url)
     else:
         name = url.split('/')
-        package = factory.generate(auther=name[0], name=name[1])
+        package = factory.generate_from_directory(auther=name[0], name=name[1])
     
     cmd = f"rm -rf {package.get_path()}"
     print(cmd)

@@ -15,11 +15,20 @@ def install(url, _factory):
         package = factory.generate_from_url(url)
     else:
         name = url.split('/')
-        package = factory.generate(auther=name[0], name=name[1])
+        package = factory.generate(auther=name[0], name=name[1], url=f"{_config.url}{name[0]}/{name[1]}")
 
-    os.system(f"mkdir {package.parent_path}/{package.auther}")
-    os.system(f"cd {package.parent_path}/{package.auther} && git clone {package.url}")
+    cmd = f"mkdir {package.parent_path}/{package.auther}"
+    os.system(cmd)
+    print(cmd)
 
+    cmd = f"cd {package.parent_path}/{package.auther} && git clone {package.url}"
+    os.system(cmd)
+    print(cmd)
+
+    path = package.get_config_path()        
+    with open(path) as f:
+        package.config = yaml.load(f)
+    
     return package
 
 def install_scanner(url):
