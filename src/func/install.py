@@ -1,27 +1,38 @@
-import os, re
+import os, re, urllib.request
 import yaml
 
 from utils import config as _config
-from utils import url as _url
+from utils import path as _url
+
+from package.scanner import Scanner, ScannerFactory
+from package.signature import Signature, SignatureFactory
 
 
+def install(url, _factory):
+    factory = _factory()
 
-def install(url, config):
-    if not re.match(r"^https?:\/\/", url):
-        url = f"{_config.url}/{url}"
+    if re.match(r"^https?:\/\/", url):
+        package = factory.generate_from_url(url)
+    else:
+        name = url.split('/')
+        package = factory.generate(auther=name[0], name=name[1], url=f"{_config.url}{name[0]}/{name[1]}")
 
-    os.system(f"cd {config.parent_path} && git clone {url}")
+    cmd = f"mkdir {package.parent_path}/{package.auther}"
+    print(cmd)
+    os.system(cmd)
 
-    name = _url.get_repo_name(url)
-    with open(f"{config.parent_path}/{name}/{config.config_path}") as f:
-        config = yaml.load(f)
+    cmd = f"cd {package.parent_path}/{package.auther} && git clone {package.url}"
+    print(cmd)
+    os.system(cmd)
 
-    return config
+    path = package.get_config_path()        
+    with open(path) as f:
+        package.config = yaml.load(f)
+    
+    return package
 
 def install_scanner(url):
-    config = install(url, _config.scanner)
-    # TODO
+    install(url, ScannerFactory)
 
 def install_signature(url):
-    config = install(url, _config.signature)
-    # TODO
+    install(url, SignatureFactory)
