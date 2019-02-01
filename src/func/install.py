@@ -61,9 +61,14 @@ def install_signature(url):
     else:
         print('not found scanner')
         scanner = signature.config['scanner']
-        check = input(f'install {scanner}? (y/n) : ')
+        check = input(f'install {scanner}? [y/n] : ')
 
         if check == 'y':
             install_scanner(scanner)
+
+            config.add(
+                'signatures',
+                signature.get_name()
+            )
         else:
             print('stop !')
