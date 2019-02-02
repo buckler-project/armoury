@@ -1,10 +1,14 @@
 #usr/bin/python
 import sys
-from func import install, uninstall, new
+from func import install, uninstall, init
 
 
 def main(argv):
     if argv[1] == 'install':
+        if len(argv) < 4:
+            print("not enough argument")
+            sys.exit(1)
+
         if argv[2] == 'scanner':
             install.install_scanner(argv[3])
             sys.exit(0)
@@ -14,6 +18,10 @@ def main(argv):
             sys.exit(0)
 
     if argv[1] == 'uninstall':
+        if len(argv) < 4:
+            print("not enough argument")
+            sys.exit(1)
+
         if argv[2] == 'scanner':
             uninstall.uninstall_scanner(argv[3])
             sys.exit(0)
@@ -22,19 +30,22 @@ def main(argv):
             uninstall.uninstall_signature(argv[3])
             sys.exit(0)
     
-    if argv[1] == 'new':
-        if argv[2] == 'detector':
-            new.new_detector(argv[3])
+    if argv[1] == 'init':
+        if len(argv) < 3:
+            print("not enough argument")
+            sys.exit(1)
+
+        if argv[2] == 'blocker':
+            init.init_detector()
             sys.exit(0)
         
         elif argv[2] == 'scanner':
-            new.new_scanner(argv[3])
+            init.init_scanner()
             sys.exit(0)
 
         elif argv[2] == 'signature':
-            new.new_signature(argv[3])
+            init.init_signature()
             sys.exit(0)
-
 
     else:
         print('argument not correct')
@@ -42,7 +53,4 @@ def main(argv):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) < 4:
-        print("not enough argument")
-    else:
-        main(sys.argv)
+    main(sys.argv)
