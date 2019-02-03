@@ -10,22 +10,22 @@ Sorry. Installer will support Windows for the future.
 
 #### Install Signature
 ```shell
-$ armoury install signature buckler/signature
+$ armoury install signature auther/name
 ```
 
 #### Install Scanner
 ```shell
-$ armoury install scanner buckler/scanner
+$ armoury install scanner auther/name
 ```
 
 #### Uninstall Signature
 ```shell
-$ armoury uninstall signature buckler/signature
+$ armoury uninstall signature auther/name
 ```
 
 #### Uninstall Scanner
 ```shell
-$ armoury uninstall signature buckler/scanner
+$ armoury uninstall scanner auther/name
 ```
 
 
