@@ -1,56 +1,58 @@
 #usr/bin/python
 import sys
-from func import install, uninstall, init
+from argparse import ArgumentParser
+
+#from func import install, uninstall, init
 
 
-def main(argv):
-    if argv[1] == 'install':
-        if len(argv) < 4:
-            print("not enough argument")
+def main(args):
+    if args.operation == 'init':
+        if args.type is None:
+            print('init operation need the `type`.')
             sys.exit(1)
 
-        if argv[2] == 'scanner':
-            install.install_scanner(argv[3])
-            sys.exit(0)
-
-        elif argv[2] == 'signature':
-            install.install_signature(argv[3])
-            sys.exit(0)
-
-    if argv[1] == 'uninstall':
-        if len(argv) < 4:
-            print("not enough argument")
-            sys.exit(1)
-
-        if argv[2] == 'scanner':
-            uninstall.uninstall_scanner(argv[3])
-            sys.exit(0)
-
-        elif argv[2] == 'signature':
-            uninstall.uninstall_signature(argv[3])
-            sys.exit(0)
-    
-    if argv[1] == 'init':
-        if len(argv) < 3:
-            print("not enough argument")
-            sys.exit(1)
-
-        if argv[2] == 'blocker':
+        if args.type == 'blocker':
             init.init_detector()
-            sys.exit(0)
         
-        elif argv[2] == 'scanner':
+        if args.type == 'scanner':
             init.init_scanner()
-            sys.exit(0)
 
-        elif argv[2] == 'signature':
+        if args.type == 'signature':
             init.init_signature()
-            sys.exit(0)
 
-    else:
-        print('argument not correct')
+
+    if args.repository is None:
+        print('install or uninstall operation need the `repository`.')
         sys.exit(1)
+
+    if args.operation == 'install':
+        install.install()
+
+    if args.operation == 'remove':
+        remove.remove()
 
 
 if __name__ == '__main__':
-    main(sys.argv)
+    parser = ArgumentParser(
+        description='package manager for buckler.',
+        add_help=True
+    )
+    
+    parser.add_argument(
+        'operation',
+        help='operation you want to do.',
+        choices=['install', 'remove', 'init']    
+    )
+    parser.add_argument(
+        '-r', '--repository',
+        help='target repository url or auther/name for github.'
+    )
+    parser.add_argument(
+        '-t', '--type',
+        choices=['blocker', 'scanner', 'signature'],    
+        help='type for project.'
+    )
+
+    args = parser.parse_args()
+    print(args)
+    main(args)
