@@ -1,5 +1,6 @@
 import os, urllib.request
 
+
 def init_project(url, file_name):
     urllib.request.urlretrieve(
         url,
