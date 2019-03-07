@@ -2,7 +2,7 @@
 import sys
 from argparse import ArgumentParser
 
-#from func import install, uninstall, init
+from func import install, remove, init
 
 
 def main(args):
@@ -21,15 +21,15 @@ def main(args):
             init.init_signature()
 
 
-    if args.repository is None:
+    elif args.repository is None:
         print('install or uninstall operation need the `repository`.')
         sys.exit(1)
 
     if args.operation == 'install':
-        install.install()
+        install.install(args)
 
     if args.operation == 'remove':
-        remove.remove()
+        remove.remove(args)
 
 
 if __name__ == '__main__':
@@ -54,5 +54,4 @@ if __name__ == '__main__':
     )
 
     args = parser.parse_args()
-    print(args)
     main(args)

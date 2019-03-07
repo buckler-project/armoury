@@ -24,7 +24,7 @@ class Package:
     def get_config_path(self):
         return f'{self.parent_path}/{self.auther}/{self.name}/{self.config_path}'
 
-class PackageFactory(metaclass=ABCMeta):
+class PackageFactory:
     def __init__(self):
         self.parent_path = ''
         self.config_path = ''
@@ -66,6 +66,10 @@ class PackageFactory(metaclass=ABCMeta):
 
         return self.generate(url=url, name=list[-1], auther=list[-2])
 
-    @abstractmethod
+    def generate_from_package(self, package):
+        return self.generate(url=package.url, name=package.name, auther=package.auther)
+
     def _generate(self, url, name, auther):
-        raise NotImplementedError()
+        #raise NotImplementedError()
+        return Package(url=url, name=name, auther=auther)
+        
