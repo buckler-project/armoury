@@ -10,22 +10,22 @@ Sorry. Installer will support Windows for the future.
 
 #### Install Signature
 ```shell
-$ armoury install signature auther/name
+$ armoury install -r auther/name
 ```
 
 #### Install Scanner
 ```shell
-$ armoury install scanner auther/name
+$ armoury install -r auther/name
 ```
 
 #### Uninstall Signature
 ```shell
-$ armoury uninstall signature auther/name
+$ armoury uninstall -r auther/name
 ```
 
 #### Uninstall Scanner
 ```shell
-$ armoury uninstall scanner auther/name
+$ armoury uninstall -r auther/name
 ```
 
 
@@ -33,20 +33,20 @@ $ armoury uninstall scanner auther/name
 ```shell
 $ mkdir project
 $ cd project
-$ armoury init signature
+$ armoury init -t signature
 ```
 
 #### Init Scanner
 ```shell
 $ mkdir project
 $ cd project
-$ armoury init scanner
+$ armoury init -t scanner
 ```
 
 #### Init Blocker
 ```shell
 $ mkdir project
 $ cd project
-$ armoury init blocker
+$ armoury init -t blocker
 ```
 
